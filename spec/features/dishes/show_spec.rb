@@ -50,5 +50,9 @@ RSpec.describe 'dish show page' do
       expect(page).to have_content(rachel.name)
       expect(page).to_not have_content(marcos.name)
      end
+
+     it "and I see the total calories for the dish" do
+      expect(page).to have_content(caccio.total_calories)
+     end
   end
 end

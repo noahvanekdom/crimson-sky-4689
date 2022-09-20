@@ -29,6 +29,7 @@ RSpec.describe 'the chef show page' do
     mapo.ingredients << pork
     mapo.ingredients << gochujang
     mapo.ingredients << tofu
+    mapo.ingredients << bamboo
 
     rainbow.ingredients << mango
     rainbow.ingredients << bamboo
@@ -39,9 +40,14 @@ RSpec.describe 'the chef show page' do
 
   describe "As a visitor, when I access a chef show page" do
     it 'displays the name of the chef' do
+      expect(page).to have_content(marcos.name)
+      expect(page).to_not have_content(rachel.name)
     end
 
     it 'has a link to direct me to an index of all ingredients the chef uses' do
+      expect(page).to have_link("Ingredients for this chef")
+      click_link ("Ingredients for this chef")
+      expect(current_path).to eq chef_ingredients_path(marcos)
     end
   end
 end
