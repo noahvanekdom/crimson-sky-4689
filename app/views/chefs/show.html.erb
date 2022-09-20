@@ -1,1 +1,3 @@
 <h1> <%= "This is the show page for #{@chef.name}" %>
+
+<p> <%= link_to "Ingredients for this chef", chef_ingredients_path(@chef) %> </p>
