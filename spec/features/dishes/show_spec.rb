@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-Rspec.describe 'dish show page' do
+RSpec.describe 'dish show page' do
   let!(:rachel) { Chef.create!(name: "Rachel") }
   let!(:kiko) { Chef.create!(name: "Kiko") }
   let!(:marcos) { Chef.create!(name: "Marcos") }
@@ -27,16 +27,28 @@ Rspec.describe 'dish show page' do
       mapo.ingredients << pork
       mapo.ingredients << gochujang
       mapo.ingredients << tofu
-      # visit dishes show path
+      visit chef_dish_path(rachel, caccio)
      end
 
      it "I see the name of the dish and the description" do
+      expect(page).to have_content(caccio.name)
+      expect(page).to have_content(caccio.description)
+      expect(page).to_not have_content(mapo.name)
+      expect(page).to_not have_content(mapo.description)
      end
 
      it "and I see a list of ingredients for that dish" do
+      expect(page).to have_content(pepper.name)
+      expect(page).to have_content(parmesan.name)
+      expect(page).to have_content(pasta.name)
+
+      expect(page).to_not have_content(pork.name)
+      expect(page).to_not have_content(gochujang.name)
      end
 
-     it "and I see the chef's name" do
+     it "and I see the name of the chef the dish belongs to" do
+      expect(page).to have_content(rachel.name)
+      expect(page).to_not have_content(marcos.name)
      end
   end
 end
